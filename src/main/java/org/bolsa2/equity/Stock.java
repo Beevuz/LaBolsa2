@@ -1,4 +1,4 @@
-package org.bolsa2;
+package org.bolsa2.equity;
 
 public class Stock {
     private String symbol;
@@ -25,5 +25,9 @@ public class Stock {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
