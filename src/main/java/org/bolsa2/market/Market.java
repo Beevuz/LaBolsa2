@@ -1,53 +1,40 @@
-package org.example;
+package org.bolsa2.market;
 
 import org.bolsa2.equity.Stock;
-import org.bolsa2.market.Market;
-import org.bolsa2.user.User;
-import javax.swing.*;
-import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Main {
-    private JFrame frame;
-    private JTextField nameField;
-    private JTextField balanceField;
-    private JTextField symbolField;
-    private JTextField quantityField;
-    private JLabel balanceLabel;
-    private JLabel messageLabel;
-    private Market market;
-    private User user;
-    private JPanel panel;
-    private JButton startButton;
-    private JButton buyButton;
-    private JButton checkBalanceButton;
-    private JButton checkStockPriceButton;
-    private JButton exitButton;
-    private JButton backButton;
-    private JComboBox<Object> stockComboBox;
-    private JLabel stockCounterLabel;
+public class Market {
+    private List<Stock> stocks;
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new Main().createAndShowGUI();
-            }
-        });
+    public Market() {
+        stocks = new ArrayList<>();
     }
 
-    private void createAndShowGUI() {
-        market = new Market();
-        market.addStock(new Stock("AAPL", 100.0));
-        market.addStock(new Stock("GOOG", 500.0));
+    public void addStock(Stock stock) {
+        stocks.add(stock);
+    }
 
-        frame = new JFrame("Stock Market Simulator");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public Stock getStock(String symbol) {
+        for (Stock stock : stocks) {
+            if (stock.getSymbol().equals(symbol)) {
+                return stock;
+            }
+        }
+        return null;
+    }
 
-        frame.setSize(400, 300);
-        frame.setLayout(new BorderLayout());
+    public List<Stock> getStocks() {
+        return stocks;
+    }
 
-        panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-
-        // ... rest of the code ...
+    public int getStockCounter(String symbol) {
+        int stockCounter = 0;
+        for (Stock stock : stocks) {
+            if (stock.getSymbol().equals(symbol)) {
+                stockCounter = stock.getQuantity();
+            }
+        }
+        return stockCounter;
     }
 }
